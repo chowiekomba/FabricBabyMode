@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    " X ",
+    " X ",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:iron_sword",
+    "components": {
+      "minecraft:enchantments": {
+        "levels": {
+          "minecraft:looting": 10,
+          "minecraft:unbreaking": 10,
+          "minecraft:sharpness": 10,
+          "minecraft:smite": 10,
+          "minecraft:bane_of_arthropods": 10,
+          "minecraft:knockback": 10,
+          "minecraft:fire_aspect": 10,
+          "minecraft:sweeping_edge": 10,
+          "minecraft:mending": 1
+        }
+      }
+    }
+  }
+}
