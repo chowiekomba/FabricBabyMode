@@ -34,7 +34,23 @@ public class swaddleCommands {
                             false
                     ));
                 }
-                // used ai to explaind the .raycast method.
+                // if a solid block is in your head (~ ~1 ~) destroy it. (should prevent you from suffocating)
+                if (!world.getBlockState(playerPosition.up()).isOf(Blocks.WATER) && !world.getBlockState(playerPosition.up()).isOf(Blocks.AIR) &&
+                !world.getBlockState(playerPosition.up()).isOf(Blocks.CAVE_AIR) && !world.getBlockState(playerPosition.up()).isOf(Blocks.VOID_AIR)) {
+                    String setblock = String.format("setblock %d %d %d air destroy",
+                            playerPosition.getX(), playerPosition.getY() + 1, playerPosition.getZ());
+
+                    // player takes 1 tick of damage before the block gets broken so I'll regen them.
+                    server.getCommandManager().executeWithPrefix(server.getCommandSource(), setblock);
+                    player.addStatusEffect(new StatusEffectInstance(
+                            StatusEffects.REGENERATION,
+                            10,
+                            255,
+                            false,
+                            false
+                    ));
+                }
+                // used ai to explain the ray cast method.
                 // THIS IS WHERE THE MAX DISTANCE IS. (keep forgetting where it is)
                 HitResult looking = player.raycast(1, 0, false);
 
