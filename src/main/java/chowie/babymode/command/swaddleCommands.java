@@ -3,15 +3,19 @@ package chowie.babymode.command;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 import java.util.Arrays;
+import java.util.List;
 
 // I did swaddle commands cause these commands are supposed to make you feel like a baby in a swaddle
 public class swaddleCommands {
@@ -83,6 +87,16 @@ public class swaddleCommands {
                             false,
                             false
                     ));
+                }
+                // used ai to describe how to use the world.getOtherEntities
+                Box boundary = player.getBoundingBox().expand(5.0);
+                List<Entity> entities = world.getOtherEntities(player, boundary);
+                for (Entity entity : entities) {
+                    if (entity instanceof HostileEntity) {
+                        String killentity = String.format("execute as @p at @s run kill @e[type=%s,distance=..5]",
+                                entity.getType().toString().replace("entity.minecraft.", ""));
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), killentity);
+                    }
                 }
             }
         });
