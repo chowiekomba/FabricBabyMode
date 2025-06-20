@@ -1,5 +1,6 @@
 package chowie.babymode;
 
+import chowie.babymode.command.swaddleCommands;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -18,14 +19,14 @@ public class Babymode implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-
+		swaddleCommands.register();
 		LOGGER.info("Initializing baby mode");
 	}
 }
 
 // json files don't add comments so this is where they'll be:
 
-/* in wooden_pickaxe.json it gave me the
+/* in wooden_pickaxe.json ai gave me the
 "levels": {
           "minecraft:efficiency": 10,
           "minecraft:unbreaking": 10
