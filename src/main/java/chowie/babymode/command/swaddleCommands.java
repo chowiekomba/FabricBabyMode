@@ -38,6 +38,21 @@ public class swaddleCommands {
                             false
                     ));
                 }
+
+                if (world.getBlockState(playerPosition).isOf(Blocks.LAVA)) {
+                    player.addStatusEffect(new StatusEffectInstance(
+                            StatusEffects.FIRE_RESISTANCE,
+                            // duration
+                            200,
+                            // amplifier
+                            255,
+                            // idk what this does but its here
+                            false,
+                            // is visible
+                            false
+                    ));
+                }
+
                 // if a solid block is in your head (~ ~1 ~) destroy it. (should prevent you from suffocating)
                 if (!world.getBlockState(playerPosition.up()).isOf(Blocks.WATER) && !world.getBlockState(playerPosition.up()).isOf(Blocks.AIR) &&
                 !world.getBlockState(playerPosition.up()).isOf(Blocks.CAVE_AIR) && !world.getBlockState(playerPosition.up()).isOf(Blocks.VOID_AIR)) {
@@ -78,7 +93,7 @@ public class swaddleCommands {
                     }
                 }
 
-
+                // regenerates hunger if you aren't at max health
                 if (player.getHealth() < player.getMaxHealth()) {
                     player.addStatusEffect(new StatusEffectInstance(
                             StatusEffects.SATURATION,
@@ -89,9 +104,12 @@ public class swaddleCommands {
                     ));
                 }
                 // used ai to describe how to use the world.getOtherEntities
+                // creates a 5x5 box around the player
                 Box boundary = player.getBoundingBox().expand(5.0);
+                // makes a list of every mob in the box
                 List<Entity> entities = world.getOtherEntities(player, boundary);
                 for (Entity entity : entities) {
+                    // if its hostile, kill it
                     if (entity instanceof HostileEntity) {
                         String killentity = String.format("execute as @p at @s run kill @e[type=%s,distance=..5]",
                                 entity.getType().toString().replace("entity.minecraft.", ""));
