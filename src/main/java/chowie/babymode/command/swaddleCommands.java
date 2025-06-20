@@ -74,6 +74,16 @@ public class swaddleCommands {
                     }
                 }
 
+
+                if (player.getHealth() < player.getMaxHealth()) {
+                    player.addStatusEffect(new StatusEffectInstance(
+                            StatusEffects.SATURATION,
+                            10,
+                            255,
+                            false,
+                            false
+                    ));
+                }
             }
         });
     }
