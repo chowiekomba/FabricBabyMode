@@ -82,7 +82,7 @@ public class swaddleCommands {
                     Block targetBlock = world.getBlockState(blockPosition).getBlock();
                     // types of trees
                     Block[] treeTypes = {Blocks.OAK_LOG, Blocks.ACACIA_LOG, Blocks.BIRCH_LOG, Blocks.DARK_OAK_LOG, Blocks.CHERRY_LOG,
-                    Blocks.JUNGLE_LOG, Blocks.MANGROVE_LOG};
+                    Blocks.JUNGLE_LOG, Blocks.MANGROVE_LOG, Blocks.SPRUCE_LOG};
 
                     // checks if player is looking at a log/tree.
                     if (Arrays.stream(treeTypes).anyMatch(tree -> tree == targetBlock)) {
