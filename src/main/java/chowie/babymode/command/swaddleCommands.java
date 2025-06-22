@@ -34,8 +34,8 @@ public class swaddleCommands {
                             400,
                             // amplifier
                             255,
-                            // idk what this does but its here
-                            false,
+                            // potion effect particles NOT visible?
+                            true,
                             // is visible
                             false
                     ));
@@ -49,8 +49,8 @@ public class swaddleCommands {
                             20,
                             // amplifier
                             255,
-                            // idk what this does but its here
-                            false,
+                            // potion effect particles NOT visible?
+                            true,
                             // is visible
                             false
                     ));
@@ -68,7 +68,7 @@ public class swaddleCommands {
                             StatusEffects.REGENERATION,
                             10,
                             255,
-                            false,
+                            true,
                             false
                     ));
                 }
@@ -96,14 +96,26 @@ public class swaddleCommands {
                     }
                 }
 
+                // disables fall damage. I tested the number, (down to 2 decimals) and 0.66 is the lowest it can go.
+                // if the number is negative, that's measuring the player going down. If its positive, that's measuring the player going up.
+                if (player.getVelocity().y < -0.66) {
+                    player.addStatusEffect(new StatusEffectInstance(
+                            StatusEffects.SLOW_FALLING,
+                            20,
+                            255,
+                            true,
+                            false
+                    ));
+                }
+
                 // regenerates hunger if you aren't at max health
                 // prevents player from dying from hunger
                 if (player.getHealth() < player.getMaxHealth()) {
                     player.addStatusEffect(new StatusEffectInstance(
                             StatusEffects.SATURATION,
-                            10,
+                            20,
                             255,
-                            false,
+                            true,
                             false
                     ));
                 }
