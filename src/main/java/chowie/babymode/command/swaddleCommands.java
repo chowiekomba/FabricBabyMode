@@ -39,6 +39,28 @@ public class swaddleCommands {
                             // is visible
                             false
                     ));
+                    player.addStatusEffect(new StatusEffectInstance(
+                            StatusEffects.NIGHT_VISION,
+                            // duration
+                            400,
+                            // amplifier
+                            255,
+                            // potion effect particles NOT visible?
+                            true,
+                            // is visible
+                            false
+                    ));
+                    player.addStatusEffect(new StatusEffectInstance(
+                            StatusEffects.DOLPHINS_GRACE,
+                            // duration
+                            400,
+                            // amplifier
+                            2,
+                            // potion effect particles NOT visible?
+                            true,
+                            // is visible
+                            false
+                    ));
                 }
 
                 // prevents player from dying from lava/fire
