@@ -25,7 +25,8 @@ public class swaddleCommands {
 
                 BlockPos playerPosition = player.getBlockPos();
                 World world = player.getWorld();
-                // used ai to find the syntax for getting player position
+                // used ai to find the syntax for getting player
+                // prevents player from drowning
                 if (world.getBlockState(playerPosition).isOf(Blocks.WATER)) {
                     player.addStatusEffect(new StatusEffectInstance(
                             StatusEffects.WATER_BREATHING,
@@ -40,6 +41,7 @@ public class swaddleCommands {
                     ));
                 }
 
+                // prevents player from dying from lava/fire
                 if (player.isOnFire()) {
                     player.addStatusEffect(new StatusEffectInstance(
                             StatusEffects.FIRE_RESISTANCE,
@@ -95,6 +97,7 @@ public class swaddleCommands {
                 }
 
                 // regenerates hunger if you aren't at max health
+                // prevents player from dying from hunger
                 if (player.getHealth() < player.getMaxHealth()) {
                     player.addStatusEffect(new StatusEffectInstance(
                             StatusEffects.SATURATION,
@@ -109,12 +112,36 @@ public class swaddleCommands {
                 Box boundary = player.getBoundingBox().expand(5.0);
                 // makes a list of every mob in the box
                 List<Entity> entities = world.getOtherEntities(player, boundary);
+                // prevents hostile mobs from hurting the player (except skeletons which might shoot the player)
                 for (Entity entity : entities) {
-                    // if its hostile, kill it
+                    // if its hostile,
                     if (entity instanceof HostileEntity) {
-                        String killentity = String.format("execute as @p at @s run kill @e[type=%s,distance=..5]",
-                                entity.getType().toString().replace("entity.minecraft.", ""));
-                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), killentity);
+                        // get its position
+                        BlockPos entityPos = entity.getBlockPos();
+                        // makes it so number 1, its a string, and number 2, it is valid minecraft command syntax. It has this syntax by default entity.minecraft.minecraft:mob_here
+                        // we need it to be just minecraft:entity_here
+                        String entityType = entity.getType().toString().replace("entity.minecraft.", "");
+                        // separate the position of the entity into X, Y, and Z
+                        double x = entity.getX();
+                        double y = entity.getY();
+                        double z = entity.getZ();
+
+                        // makes the entity have no ai.
+                        // It's important that this is here or else the entity will still be moving when the signs are being spawned making there be multiple signs.
+                        String noAiEntity = String.format("execute positioned %f %f %f run data merge entity @e[type=%s,sort=nearest,limit=1,distance=..1] {NoAI:1b}",
+                                x, y, z, entityType);
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), noAiEntity);
+
+                        // adds a sign to make it more funny
+                        String signEntity = String.format("setblock %d %d %d minecraft:oak_sign{front_text:{messages:['{\"text\":\"%s died to: \"}','{\"text\":\"your existence\"}','{\"text\":\"\"}','{\"text\":\"\"}']}}",
+                                entityPos.getX(), entityPos.getY(), entityPos.getZ(),
+                                entityType);
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), signEntity);
+
+                        // kills the hostile mob
+                        String killEntity = String.format("execute positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
+                                x, y, z, entityType);
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), killEntity);
                     }
                 }
             }
