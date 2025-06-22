@@ -22,6 +22,7 @@ public class swaddleCommands {
     public static void register() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+
                 BlockPos playerPosition = player.getBlockPos();
                 World world = player.getWorld();
                 // used ai to find the syntax for getting player position
@@ -29,7 +30,7 @@ public class swaddleCommands {
                     player.addStatusEffect(new StatusEffectInstance(
                             StatusEffects.WATER_BREATHING,
                             // duration
-                            200,
+                            400,
                             // amplifier
                             255,
                             // idk what this does but its here
@@ -39,11 +40,11 @@ public class swaddleCommands {
                     ));
                 }
 
-                if (world.getBlockState(playerPosition).isOf(Blocks.LAVA)) {
+                if (player.isOnFire()) {
                     player.addStatusEffect(new StatusEffectInstance(
                             StatusEffects.FIRE_RESISTANCE,
                             // duration
-                            200,
+                            20,
                             // amplifier
                             255,
                             // idk what this does but its here
