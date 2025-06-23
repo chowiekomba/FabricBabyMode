@@ -44,6 +44,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:lapis_lazuli",
+          "conditions": [
+            {
+            "condition": "minecraft:random_chance",
+            "chance": 0.2
+            }
+          ],
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -57,6 +63,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:gold_ingot",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.2
+            }
+          ],
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -70,6 +82,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_ingot",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.2
+            }
+          ],
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -83,6 +101,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:emerald",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.2
+            }
+          ],
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -96,6 +120,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:quartz",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.2
+            }
+          ],
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -109,6 +139,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:copper_ingot",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.2
+            }
+          ],
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -141,6 +177,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:redstone",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.2
+            }
+          ],
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -154,6 +196,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:coal",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.2
+            }
+          ],
           "functions": [
             {
               "function": "minecraft:set_count",
