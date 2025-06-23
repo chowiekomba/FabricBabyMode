@@ -148,8 +148,40 @@ public class swaddleCommands {
                 List<Entity> entities = world.getOtherEntities(player, boundary);
                 // prevents hostile mobs from hurting the player (except skeletons which might shoot the player)
                 for (Entity entity : entities) {
+
+                    String mobType = entity.getType().toString().replace("entity.minecraft.", "");
+
+
+                    if (mobType.equals("iron_golem")) {
+                        BlockPos golemPos = entity.getBlockPos();
+                        // makes it so number 1, its a string, and number 2, it is valid minecraft command syntax. It has this syntax by default entity.minecraft.minecraft:mob_here
+                        // we need it to be just minecraft:entity_here
+                        String golemType = entity.getType().toString().replace("entity.minecraft.", "");
+                        // separate the position of the entity into X, Y, and Z
+                        double golem_x = entity.getX();
+                        double golem_y = entity.getY();
+                        double golem_z = entity.getZ();
+
+                        // makes the entity have no ai.
+                        // It's important that this is here or else the entity will still be moving when the signs are being spawned making there be multiple signs.
+                        String noAiGolem = String.format("execute positioned %f %f %f run data merge entity @e[type=%s,sort=nearest,limit=1,distance=..1] {NoAI:1b}",
+                                golem_x, golem_y, golem_z, golemType);
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), noAiGolem);
+
+                        // adds a chest
+                        String chestGolem = String.format("setblock %d %d %d minecraft:oak_sign{front_text:{messages:['{\"text\":\"I am god\"}','{\"text\":\"I will be back\"}','{\"text\":\"you will die\"}','{\"text\":\"\"}']}}",
+                                golemPos.getX(), golemPos.getY(), golemPos.getZ());
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), chestGolem);
+
+                        // kills the hostile mob
+                        String killGolem = String.format("execute positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
+                                golem_x, golem_y, golem_z, golemType);
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), killGolem);
+                    }
+
+
                     // if its hostile,
-                    if (entity instanceof HostileEntity) {
+                    else if (entity instanceof HostileEntity) {
                         // get its position
                         BlockPos entityPos = entity.getBlockPos();
                         // makes it so number 1, its a string, and number 2, it is valid minecraft command syntax. It has this syntax by default entity.minecraft.minecraft:mob_here
@@ -176,6 +208,7 @@ public class swaddleCommands {
                         String killEntity = String.format("execute positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
                                 x, y, z, entityType);
                         server.getCommandManager().executeWithPrefix(server.getCommandSource(), killEntity);
+
                     }
                 }
             }
