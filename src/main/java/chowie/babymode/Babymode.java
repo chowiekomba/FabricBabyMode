@@ -19,7 +19,6 @@ public class Babymode implements ModInitializer {
 		// only runs on server start
 		onLoadCommands.register();
 
-
 		LOGGER.info("Initializing baby mode");
 	}
 }
@@ -32,5 +31,6 @@ public class Babymode implements ModInitializer {
           "minecraft:unbreaking": 10
 as I didn't know what the syntax was for enchants
 
+I also made the first couple of ores, but it got tiring so I got ai to make the rest in stone.json
 
  */
