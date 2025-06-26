@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:leather"
+    }
+  },
+  "pattern": [
+    "   ",
+    "###",
+    "# #"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:leather_helmet",
+    "components": {
+      "minecraft:enchantments": {
+        "levels": {
+          "minecraft:aqua_affinity": 10,
+          "minecraft:blast_protection": 10,
+          "minecraft:fire_protection": 10,
+          "minecraft:mending": 1,
+          "minecraft:projectile_protection": 10,
+          "minecraft:protection": 10,
+          "minecraft:respiration": 10,
+          "minecraft:thorns": 10,
+          "minecraft:unbreaking": 10
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "   ",
+    "# #",
+    "# #"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:iron_boots",
+    "components": {
+      "minecraft:enchantments": {
+        "levels": {
+          "minecraft:blast_protection": 10,
+          "minecraft:depth_strider": 10,
+          "minecraft:feather_falling": 10,
+          "minecraft:fire_protection": 10,
+          "minecraft:frost_walker": 10,
+          "minecraft:mending": 1,
+          "minecraft:projectile_protection": 10,
+          "minecraft:protection": 10,
+          "minecraft:soul_speed": 10,
+          "minecraft:thorns": 10,
+          "minecraft:unbreaking": 10
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "# #",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:golden_chestplate",
+    "components": {
+      "minecraft:enchantments": {
+        "levels": {
+          "minecraft:blast_protection": 10,
+          "minecraft:fire_protection": 10,
+          "minecraft:mending": 1,
+          "minecraft:projectile_protection": 10,
+          "minecraft:protection": 10,
+          "minecraft:thorns": 10,
+          "minecraft:unbreaking": 10
+        }
+      }
+    }
+  }
+}
