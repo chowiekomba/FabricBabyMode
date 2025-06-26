@@ -18,12 +18,12 @@ import java.util.Arrays;
 import java.util.List;
 
 // I did swaddle commands cause these commands are supposed to make you feel like a baby in a swaddle
-public class swaddleCommands {
+public class NetherSwaddleCommands {
     public static void register() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
                 World world = player.getWorld();
-                if (world.getRegistryKey() == World.OVERWORLD) {
+                if (world.getRegistryKey() == World.NETHER) {
                     BlockPos playerPosition = player.getBlockPos();
                     // used ai to find the syntax for getting player
                     // prevents player from drowning
@@ -130,7 +130,7 @@ public class swaddleCommands {
                     if (!world.getBlockState(playerPosition.up()).isOf(Blocks.WATER) && !world.getBlockState(playerPosition.up()).isOf(Blocks.AIR) &&
                             !world.getBlockState(playerPosition.up()).isOf(Blocks.CAVE_AIR) && !world.getBlockState(playerPosition.up()).isOf(Blocks.VOID_AIR)
                             && !world.getBlockState(playerPosition.up()).isOf(Blocks.TALL_GRASS) && !world.getBlockState(playerPosition.up()).isOf(Blocks.NETHER_PORTAL)) {
-                        String setblock = String.format("setblock %d %d %d air destroy",
+                        String setblock = String.format("execute in minecraft:the_nether run setblock %d %d %d air destroy",
                                 playerPosition.getX(), playerPosition.getY() + 1, playerPosition.getZ());
 
                         // player takes 1 tick of damage before the block gets broken so I'll regen them.
@@ -160,7 +160,7 @@ public class swaddleCommands {
 
                         // checks if player is looking at a log/tree.
                         if (Arrays.stream(treeTypes).anyMatch(tree -> tree == targetBlock)) {
-                            String setblock = String.format("setblock %d %d %d air destroy",
+                            String setblock = String.format("execute in minecraft:the_nether run setblock %d %d %d air destroy",
                                     blockPosition.getX(), blockPosition.getY(), blockPosition.getZ());
                             // I have to use server.getCommandSource so I don't have to assign the command to a player.
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), setblock);
@@ -197,6 +197,23 @@ public class swaddleCommands {
                     Box boundary = player.getBoundingBox().expand(5.0);
                     // makes a list of every mob in the box
                     List<Entity> entities = world.getOtherEntities(player, boundary);
+                    // used ai to create these variables
+                    BlockPos start = BlockPos.ofFloored(boundary.minX, boundary.minY, boundary.minZ);
+                    BlockPos end = BlockPos.ofFloored(boundary.maxX, boundary.maxY, boundary.maxZ);
+
+                    for (int blockX = start.getX(); blockX <= end.getX(); blockX++) {
+                        for (int blockY = start.getY(); blockY <= end.getY(); blockY++) {
+                            for (int blockZ = start.getZ(); blockZ <= end.getZ(); blockZ++) {
+                                BlockPos blockPosition = new BlockPos(blockX, blockY, blockZ);
+                                Block block = world.getBlockState(blockPosition).getBlock();
+                                if (block == Blocks.LAVA) {
+                                    String getRidOfLava = String.format("execute in minecraft:the_nether run setblock %d %d %d minecraft:obsidian destroy",
+                                            blockX, blockY, blockZ);
+                                    server.getCommandManager().executeWithPrefix(server.getCommandSource(), getRidOfLava);
+                                }
+                            }
+                        }
+                    }
                     // prevents hostile mobs from hurting the player (except skeletons which might shoot the player)
                     for (Entity entity : entities) {
 
@@ -216,17 +233,17 @@ public class swaddleCommands {
 
                             // makes the entity have no ai.
                             // It's important that this is here or else the entity will still be moving when the signs are being spawned making there be multiple signs.
-                            String noAiGolem = String.format("execute positioned %f %f %f run data merge entity @e[type=%s,sort=nearest,limit=1,distance=..1] {NoAI:1b}",
+                            String noAiGolem = String.format("execute in minecraft:the_nether positioned %f %f %f run data merge entity @e[type=%s,sort=nearest,limit=1,distance=..1] {NoAI:1b}",
                                     golem_x, golem_y, golem_z, golemType);
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), noAiGolem);
 
                             // adds a chest
-                            String chestGolem = String.format("setblock %d %d %d minecraft:oak_sign{front_text:{messages:['{\"text\":\"I am god\"}','{\"text\":\"I will be back\"}','{\"text\":\"you will die\"}','{\"text\":\"\"}']}}",
+                            String chestGolem = String.format("execute in minecraft:the_nether run setblock %d %d %d minecraft:oak_sign{front_text:{messages:['{\"text\":\"I am god\"}','{\"text\":\"I will be back\"}','{\"text\":\"you will die\"}','{\"text\":\"\"}']}}",
                                     golemPos.getX(), golemPos.getY(), golemPos.getZ());
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), chestGolem);
 
                             // kills the hostile mob
-                            String killGolem = String.format("execute positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
+                            String killGolem = String.format("execute in minecraft:the_nether positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
                                     golem_x, golem_y, golem_z, golemType);
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), killGolem);
                         }
@@ -247,18 +264,18 @@ public class swaddleCommands {
 
                             // makes the entity have no ai.
                             // It's important that this is here or else the entity will still be moving when the signs are being spawned making there be multiple signs.
-                            String noAiEntity = String.format("execute positioned %f %f %f run data merge entity @e[type=%s,sort=nearest,limit=1,distance=..1] {NoAI:1b}",
+                            String noAiEntity = String.format("execute in minecraft:the_nether positioned %f %f %f run data merge entity @e[type=%s,sort=nearest,limit=1,distance=..1] {NoAI:1b}",
                                     x, y, z, entityType);
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), noAiEntity);
 
                             // adds a sign to make it more funny
-                            String signEntity = String.format("setblock %d %d %d minecraft:oak_sign{front_text:{messages:['{\"text\":\"%s died to: \"}','{\"text\":\"your existence\"}','{\"text\":\"\"}','{\"text\":\"\"}']}}",
+                            String signEntity = String.format("execute in minecraft:the_nether run setblock %d %d %d minecraft:oak_sign{front_text:{messages:['{\"text\":\"%s died to: \"}','{\"text\":\"your existence\"}','{\"text\":\"\"}','{\"text\":\"\"}']}}",
                                     hostileEntityPos.getX(), hostileEntityPos.getY(), hostileEntityPos.getZ(),
                                     entityType);
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), signEntity);
 
                             // kills the hostile mob
-                            String killEntity = String.format("execute positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
+                            String killEntity = String.format("execute in minecraft:the_nether positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
                                     x, y, z, entityType);
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), killEntity);
 

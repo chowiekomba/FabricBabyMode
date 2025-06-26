@@ -1,5 +1,6 @@
 package chowie.babymode;
 
+import chowie.babymode.command.NetherSwaddleCommands;
 import chowie.babymode.command.onLoadCommands;
 import chowie.babymode.command.swaddleCommands;
 import net.fabricmc.api.ModInitializer;
@@ -16,6 +17,7 @@ public class Babymode implements ModInitializer {
 	public void onInitialize() {
 		// runs every tick
 		swaddleCommands.register();
+		NetherSwaddleCommands.register();
 		// only runs on server start
 		onLoadCommands.register();
 
