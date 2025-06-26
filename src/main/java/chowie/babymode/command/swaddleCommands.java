@@ -78,6 +78,54 @@ public class swaddleCommands {
                     ));
                 }
 
+
+                String[] positiveEffects = new String[] {
+                "effect.minecraft.water_breathing",
+                "effect.minecraft.absorption",
+                "effect.minecraft.conduit_power",
+                "effect.minecraft.dolphins_grace",
+                "effect.minecraft.fire_resistance",
+                "effect.minecraft.haste",
+                "effect.minecraft.health_boost",
+                "effect.minecraft.hero_of_the_village",
+                "effect.minecraft.instant_health",
+                "effect.minecraft.invisibility",
+                "effect.minecraft.jump_boost",
+                "effect.minecraft.luck",
+                "effect.minecraft.night_vision",
+                "effect.minecraft.regeneration",
+                "effect.minecraft.resistance",
+                "effect.minecraft.saturation",
+                "effect.minecraft.speed",
+                "effect.minecraft.strength",
+                "effect.minecraft.water_breathing",
+                "effect.minecraft.weaving"};
+
+
+                java.util.Collection<StatusEffectInstance> Effects = player.getStatusEffects();
+
+                for (StatusEffectInstance effect : Effects) {
+                    // used ai to figure out this print statement. The one I was using before, was printing StatusEffect@9a07409 (while I was debugging it)
+                    if (List.of(positiveEffects).contains(effect.getEffectType().value().getTranslationKey())) {
+                        player.setStatusEffect(new StatusEffectInstance(
+                                effect.getEffectType(),
+                                Integer.MAX_VALUE,
+                                effect.getAmplifier(),
+                                true,
+                                false
+                        ), player);
+                    } else if (player.hasStatusEffect(effect.getEffectType())) {
+                        player.setStatusEffect(new StatusEffectInstance(
+                                effect.getEffectType(),
+                                0,
+                                effect.getAmplifier(),
+                                true,
+                                false
+                        ), player);
+                    }
+
+                }
+
                 // if a solid block is in your head (~ ~1 ~) destroy it. (should prevent you from suffocating)
                 if (!world.getBlockState(playerPosition.up()).isOf(Blocks.WATER) && !world.getBlockState(playerPosition.up()).isOf(Blocks.AIR) &&
                 !world.getBlockState(playerPosition.up()).isOf(Blocks.CAVE_AIR) && !world.getBlockState(playerPosition.up()).isOf(Blocks.VOID_AIR)) {
@@ -141,6 +189,11 @@ public class swaddleCommands {
                             false
                     ));
                 }
+
+
+
+
+
                 // used ai to describe how to use the world.getOtherEntities
                 // creates a 5x5 box around the player
                 Box boundary = player.getBoundingBox().expand(5.0);
