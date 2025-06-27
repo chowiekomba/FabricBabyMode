@@ -226,7 +226,7 @@ public class swaddleCommands {
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), chestGolem);
 
                             // kills the hostile mob
-                            String killGolem = String.format("execute positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
+                            String killGolem = String.format("execute as @p as @s positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
                                     golem_x, golem_y, golem_z, golemType);
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), killGolem);
                         }
@@ -258,7 +258,7 @@ public class swaddleCommands {
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), signEntity);
 
                             // kills the hostile mob
-                            String killEntity = String.format("execute positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
+                            String killEntity = String.format("execute as @p as @s positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
                                     x, y, z, entityType);
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), killEntity);
 

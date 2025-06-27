@@ -19,11 +19,21 @@ import java.util.List;
 
 // I did swaddle commands cause these commands are supposed to make you feel like a baby in a swaddle
 public class NetherSwaddleCommands {
+    private static boolean gaveStuff = false;
     public static void register() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
                 World world = player.getWorld();
                 if (world.getRegistryKey() == World.NETHER) {
+                    if (!gaveStuff) {
+                        String givePearls = "execute as @p as @s run give @s minecraft:ender_pearl 16";
+                        String giveBlazeRod = "execute as @p as @s run give @s minecraft:blaze_rod 64";
+                        String giveEyes = "execute as @p as @s run give @s minecraft:ender_eye 64";
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), givePearls);
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), giveBlazeRod);
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), giveEyes);
+                        gaveStuff = true;
+                    }
                     BlockPos playerPosition = player.getBlockPos();
                     // used ai to find the syntax for getting player
                     // prevents player from drowning
