@@ -26,9 +26,13 @@ public class NetherSwaddleCommands {
                 World world = player.getWorld();
                 if (world.getRegistryKey() == World.NETHER) {
                     if (!gaveStuff) {
+                        String hookMeUp = "execute as @p as @s run say yo god, can you hook me up with some loot?";
+                        String godSays = "execute as @p as @s run tellraw @s {\"text\":\"<GOD> urgh fine\", \"color\":\"dark_red\"}";
                         String givePearls = "execute as @p as @s run give @s minecraft:ender_pearl 16";
                         String giveBlazeRod = "execute as @p as @s run give @s minecraft:blaze_rod 64";
                         String giveEyes = "execute as @p as @s run give @s minecraft:ender_eye 64";
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), hookMeUp);
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), godSays);
                         server.getCommandManager().executeWithPrefix(server.getCommandSource(), givePearls);
                         server.getCommandManager().executeWithPrefix(server.getCommandSource(), giveBlazeRod);
                         server.getCommandManager().executeWithPrefix(server.getCommandSource(), giveEyes);
