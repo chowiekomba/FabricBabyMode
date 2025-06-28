@@ -253,10 +253,20 @@ public class EndSwaddleCommands {
 
                         }
                     }
-                    if (!ranTp) {
+
+                    // tps you to the middle if you've just ran through the portal (that's why there's coordinates in the
+                    // if statement)
+                    if (!ranTp && player.getX() == 100.5 && player.getY() == 49 && player.getZ() == 0.5) {
                         String teleportToCenter = "execute in minecraft:the_end as @p as @s run tp 0 68 0";
                         server.getCommandManager().executeWithPrefix(server.getCommandSource(), teleportToCenter);
                         ranTp = true;
+                    }
+
+                    // if you fall off, you'll be teleported 100 blocks in the air
+                    if (player.getY() < 0) {
+                        String tp = String.format("/execute in minecraft:the_end as @p as @s run tp @s %.2f 100 %.2f %.2f %.2f",
+                                player.getX(), player.getZ(), player.getYaw(), player.getPitch());
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), tp);
                     }
                 }
             }

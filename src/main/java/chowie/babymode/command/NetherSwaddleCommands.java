@@ -250,7 +250,6 @@ public class NetherSwaddleCommands {
                             String noAiGolem = String.format("execute in minecraft:the_nether positioned %f %f %f run data merge entity @e[type=%s,sort=nearest,limit=1,distance=..1] {NoAI:1b}",
                                     golem_x, golem_y, golem_z, golemType);
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), noAiGolem);
-
                             // adds a chest
                             String chestGolem = String.format("execute in minecraft:the_nether run setblock %d %d %d minecraft:oak_sign{front_text:{messages:['{\"text\":\"I am god\"}','{\"text\":\"I will be back\"}','{\"text\":\"you will die\"}','{\"text\":\"\"}']}}",
                                     golemPos.getX(), golemPos.getY(), golemPos.getZ());
