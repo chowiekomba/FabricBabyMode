@@ -105,7 +105,7 @@ public class swaddleCommands {
                     java.util.Collection<StatusEffectInstance> Effects = player.getStatusEffects();
 
                     for (StatusEffectInstance effect : Effects) {
-                        // used ai to figure out this print statement. The one I was using before, was printing StatusEffect@9a07409 (while I was debugging it)
+                        // used ai to figure out this if statement. The one I was using before, was printing StatusEffect@9a07409 (while I was debugging it)
                         if (List.of(positiveEffects).contains(effect.getEffectType().value().getTranslationKey())) {
                             player.setStatusEffect(new StatusEffectInstance(
                                     effect.getEffectType(),

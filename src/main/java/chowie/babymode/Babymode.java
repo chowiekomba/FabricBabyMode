@@ -1,5 +1,6 @@
 package chowie.babymode;
 
+import chowie.babymode.command.EndSwaddleCommands;
 import chowie.babymode.command.NetherSwaddleCommands;
 import chowie.babymode.command.onLoadCommands;
 import chowie.babymode.command.swaddleCommands;
@@ -18,6 +19,7 @@ public class Babymode implements ModInitializer {
 		// runs every tick
 		swaddleCommands.register();
 		NetherSwaddleCommands.register();
+		EndSwaddleCommands.register();
 		// only runs on server start
 		onLoadCommands.register();
 
