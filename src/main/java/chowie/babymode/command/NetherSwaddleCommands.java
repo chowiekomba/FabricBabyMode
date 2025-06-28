@@ -143,7 +143,9 @@ public class NetherSwaddleCommands {
                     // if a solid block is in your head (~ ~1 ~) destroy it. (should prevent you from suffocating)
                     if (!world.getBlockState(playerPosition.up()).isOf(Blocks.WATER) && !world.getBlockState(playerPosition.up()).isOf(Blocks.AIR) &&
                             !world.getBlockState(playerPosition.up()).isOf(Blocks.CAVE_AIR) && !world.getBlockState(playerPosition.up()).isOf(Blocks.VOID_AIR)
-                            && !world.getBlockState(playerPosition.up()).isOf(Blocks.TALL_GRASS) && !world.getBlockState(playerPosition.up()).isOf(Blocks.NETHER_PORTAL)) {
+                            && !world.getBlockState(playerPosition.up()).isOf(Blocks.TALL_GRASS) && !world.getBlockState(playerPosition.up()).isOf(Blocks.NETHER_PORTAL)
+                            && !world.getBlockState(playerPosition.up()).isOf(Blocks.LADDER) && !world.getBlockState(playerPosition.up()).isOf(Blocks.TORCH)) {
+
                         String setblock = String.format("execute in minecraft:the_nether run setblock %d %d %d air destroy",
                                 playerPosition.getX(), playerPosition.getY() + 1, playerPosition.getZ());
 
