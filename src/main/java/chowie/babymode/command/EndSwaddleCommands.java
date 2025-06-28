@@ -7,7 +7,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -267,6 +270,14 @@ public class EndSwaddleCommands {
                         String tp = String.format("/execute in minecraft:the_end as @p as @s run tp @s %.2f 100 %.2f %.2f %.2f",
                                 player.getX(), player.getZ(), player.getYaw(), player.getPitch());
                         server.getCommandManager().executeWithPrefix(server.getCommandSource(), tp);
+                    }
+                    // used ai to make the variable maybeElytra
+                    ItemStack maybeElytra = player.getStackInHand(Hand.MAIN_HAND);
+                    if (maybeElytra.getItem() == Items.ELYTRA && !maybeElytra.hasEnchantments()) {
+                        String clearElytra = "execute as @p as @s run clear @s minecraft:elytra";
+                        String giveElytra = "execute as @p as @s run give @s minecraft:elytra[enchantments={levels:{mending:1,unbreaking:10}}]";
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), clearElytra);
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), giveElytra);
                     }
                 }
             }
