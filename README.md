@@ -1,14 +1,14 @@
 ## This took about a week to get to version **1**, or about *15-20* hours to make.
 
-### This was a *loose* re-creation of [Fundy's baby mode](https://www.youtube.com/watch?v=Hld36cKKcm0) but there's some features that I added and changed that I think make it better.
+### This project is a *loose* re-creation of [Fundy's baby mode](https://www.youtube.com/watch?v=Hld36cKKcm0) but there are some features that I added and changed that I think make it better.
 
 The first thing I did to start creating the mod was learning a mod loader.
-I did a lot of minecraft modding (just installing mods) in the past, but I've never developed a mod before.
-I used to only play with curseforge mods, but eventually switched to fabric when it was more popular.
-I still didn't really like fabric with how much cool mods it were missing from curseforge, but doing a little research, I found fabric was the easiest to develope on.
-So, I started watching [Kaupenjoe's fabric modding tutorial](https://www.youtube.com/watch?v=bVho57E_1hU&list=PLKGarocXCE1H_HxOYihQMq0mlpqiUJj4L).
-I got to about the 5th episode before I stumbled along the fabric documentation (and actually read it) and realized the mod that I wanted to make was actually pretty simple.
-So, most of the mod is written from the fabric docs and some ai (when the fabric docs didn't work or I couldn't find what I was looking for).
+I did a lot of Minecraft modding (just installing mods) in the past, but I've never developed a mod before.
+I used to only play with Curseforge mods, but eventually switched to Fabric when it was more popular.
+I still didn't really like Fabric with how many cool mods it was missing from Curseforge, but doing a little research, I found Fabric was the easiest to develop on.
+So, I started watching [Kaupenjoe's Fabric Modding Tutorial](https://www.youtube.com/watch?v=bVho57E_1hU&list=PLKGarocXCE1H_HxOYihQMq0mlpqiUJj4L).
+I got to about the 5th episode before I stumbled along the Fabric documentation (and actually read it) and realized the mod that I wanted to make was actually pretty simple.
+So, most of the mod is written from the Fabric docs and some Ai (when the Fabric docs didn't work or I couldn't find what I was looking for).
 
 This brings me to:
 # The first feature (v0.1)
