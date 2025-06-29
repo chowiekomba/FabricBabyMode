@@ -117,4 +117,4 @@ This feature makes it so when you get an elytra, if you put it in your main hand
 # the thirtieth feature (v1)
 Suprise suprise, the final update was a bug fix. When implementing the enchanted elytra update, I couldn't get to an end city in survival, becuase the ladder kept breaking on me. So, I added an exception to torches and ladders.
 
-This was cs50x/babymode.
+## This was cs50x/babymode.
