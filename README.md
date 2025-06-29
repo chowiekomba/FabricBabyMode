@@ -1,6 +1,6 @@
-This took about a week to get to v1, or about **15-20** hours to make so, let's hope the project is big enough for this readme to get to 750 words.
+## This took about a week to get to v1, or about **15-20** hours to make so, let's hope the project is big enough for this readme to get to 750 words.
 
-This was a *loose* re-creation of [Fundy's baby mode](https://www.youtube.com/watch?v=Hld36cKKcm0) but there's some features that I added and changed that I think make it better.
+### This was a *loose* re-creation of [Fundy's baby mode](https://www.youtube.com/watch?v=Hld36cKKcm0) but there's some features that I added and changed that I think make it better.
 
 The first thing I did to start creating the mod was learning a mod loader.
 I did a lot of minecraft modding (just installing mods) in the past, but I've never developed a mod before.
