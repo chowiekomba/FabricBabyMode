@@ -13,7 +13,7 @@ So, most of the mod is written from the Fabric docs and some Ai (when the Fabric
 This brings me to:
 # The first feature (v0.1)
 I was still really new to version control at the time, and every feature I added took a while to implement.
-That's why my first feature was all pickaxes are enchanted. Pretty self explanatory if I do say so my self.
+That's why my first feature was all pickaxes are enchanted and not every other tool as well. Pretty self explanatory if I do say so my self.
 All I had to do was create a .json file in my mod. It was located in resources\data\minecraft\recipe\[insert_pickaxe_here]_pickaxe.json
 and I just gave it a component called enchantments, and looked up every enchantment a pickaxe could have, and made every enchantment level 10.
 
