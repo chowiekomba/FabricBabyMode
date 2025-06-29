@@ -5,7 +5,7 @@
 The first thing I did to start creating the mod was learning a mod loader.
 I did a lot of minecraft modding (just installing mods) in the past, but I've never developed a mod before.
 I used to only play with curseforge mods, but eventually switched to fabric when it was more popular.
-I still didn't really like fabric with how much cool mods it was missing, but doing a little research, I found fabric was the easiest to develope on.
+I still didn't really like fabric with how much cool mods it were missing from curseforge, but doing a little research, I found fabric was the easiest to develope on.
 So, I started watching [Kaupenjoe's fabric modding tutorial](https://www.youtube.com/watch?v=bVho57E_1hU&list=PLKGarocXCE1H_HxOYihQMq0mlpqiUJj4L).
 I got to about the 5th episode before I stumbled along the fabric documentation (and actually read it) and realized the mod that I wanted to make was actually pretty simple.
 So, most of the mod is written from the fabric docs and some ai (when the fabric docs didn't work or I couldn't find what I was looking for).
