@@ -1,4 +1,4 @@
-## This took about a week to get to version **1**, or about *15-20* hours to make so, let's hope the project is big enough for this readme to get to 750 words.
+## This took about a week to get to version **1**, or about *15-20* hours to make.
 
 ### This was a *loose* re-creation of [Fundy's baby mode](https://www.youtube.com/watch?v=Hld36cKKcm0) but there's some features that I added and changed that I think make it better.
 
