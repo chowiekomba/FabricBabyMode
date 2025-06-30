@@ -7,7 +7,7 @@ public class onLoadCommands {
     private static final String gameruleTrue = "gamerule keepInventory true";
 
     public static void register() {
-        // used ai to look up the syntax for line 11
+        // used ai to look up the syntax for line 11 (the ServerLifeCycleEvents.SERVER_STARTED)
         ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
             if (!ran) {
                 server.getCommandManager().executeWithPrefix(server.getCommandSource(), commandFeedback);

@@ -240,6 +240,7 @@ public class swaddleCommands {
 
                             // makes it so number 1, its a string, and number 2, it is valid minecraft command syntax. It has this syntax by default entity.minecraft.minecraft:mob_here
                             // we need it to be just minecraft:entity_here
+                            // I used ai because I was replacing .entity and .minecraft separately and it just changed the .replace
                             String entityType = entity.getType().toString().replace("entity.minecraft.", "");
                             // separate the position of the entity into X, Y, and Z
                             double x = entity.getX();

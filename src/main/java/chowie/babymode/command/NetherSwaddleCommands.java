@@ -115,7 +115,7 @@ public class NetherSwaddleCommands {
                             "effect.minecraft.water_breathing",
                             "effect.minecraft.weaving"};
 
-
+                    // this was also apart of what ai wrote
                     java.util.Collection<StatusEffectInstance> Effects = player.getStatusEffects();
 
                     for (StatusEffectInstance effect : Effects) {
