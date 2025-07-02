@@ -7,15 +7,8 @@
 
 ### This project is a *loose* re-creation of [Fundy's baby mode](https://www.youtube.com/watch?v=Hld36cKKcm0) but there are some features that I added and changed that I think make it better.
 
-The first thing I did to start creating the mod was learning a mod loader.
-I did a lot of Minecraft modding (just installing mods) in the past, but I've never developed a mod before.
-I used to only play with Curseforge mods, but eventually switched to Fabric when it was more popular.
-I still didn't really like Fabric with how many cool mods it was missing from Curseforge, but doing a little research, I found Fabric was the easiest to develop on.
-So, I started watching [Kaupenjoe's Fabric Modding Tutorial](https://www.youtube.com/watch?v=bVho57E_1hU&list=PLKGarocXCE1H_HxOYihQMq0mlpqiUJj4L).
-I got to about the 5th episode before I stumbled along the Fabric documentation (and actually read it) and realized the mod that I wanted to make was actually pretty simple.
-So, most of the mod is written from the Fabric docs and some Ai (when the Fabric docs didn't work or I couldn't find what I was looking for).
-
 This brings me to:
+
 # The first feature (v0.1)
 I was still really new to version control at the time, and every feature I added took a while to implement.
 That's why my first feature was all "pickaxes are enchanted" and not every other tool as well. Pretty self explanatory, if I do say so my self.
