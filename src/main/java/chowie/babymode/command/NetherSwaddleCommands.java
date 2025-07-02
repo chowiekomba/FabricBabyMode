@@ -112,7 +112,6 @@ public class NetherSwaddleCommands {
                             "effect.minecraft.saturation",
                             "effect.minecraft.speed",
                             "effect.minecraft.strength",
-                            "effect.minecraft.water_breathing",
                             "effect.minecraft.weaving"};
 
                     // this was also apart of what ai wrote

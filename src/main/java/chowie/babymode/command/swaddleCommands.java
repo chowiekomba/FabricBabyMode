@@ -98,7 +98,6 @@ public class swaddleCommands {
                             "effect.minecraft.saturation",
                             "effect.minecraft.speed",
                             "effect.minecraft.strength",
-                            "effect.minecraft.water_breathing",
                             "effect.minecraft.weaving"};
 
 

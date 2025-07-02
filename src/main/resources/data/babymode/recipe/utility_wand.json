@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "tools",
+  "key": {
+    "/": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:flint"
+    }
+  },
+  "pattern": [
+    "   ",
+    " X ",
+    " / "
+  ],
+  "result": {
+    "count": 1,
+    "id": "babymode:utility_wand"
+  }
+}

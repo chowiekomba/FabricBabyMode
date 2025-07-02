@@ -4,6 +4,7 @@ import chowie.babymode.command.EndSwaddleCommands;
 import chowie.babymode.command.NetherSwaddleCommands;
 import chowie.babymode.command.onLoadCommands;
 import chowie.babymode.command.swaddleCommands;
+import chowie.babymode.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ public class Babymode implements ModInitializer {
 		EndSwaddleCommands.register();
 		// only runs on server start
 		onLoadCommands.register();
+		ModItems.registerModItems();
 
 		LOGGER.info("Initializing baby mode");
 	}
