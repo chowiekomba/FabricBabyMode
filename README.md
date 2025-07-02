@@ -1,3 +1,8 @@
+# Fabric Baby Mode
+#### Video Demo: https://www.youtube.com/watch?v=Ul5VIaLn2Jg
+#### Description:
+
+
 ## This took about a week to get to version **1**, or about *15-20* hours to make.
 
 ### This project is a *loose* re-creation of [Fundy's baby mode](https://www.youtube.com/watch?v=Hld36cKKcm0) but there are some features that I added and changed that I think make it better.
