@@ -1,5 +1,6 @@
 package net.chowie.babymode.command;
 
+import net.chowie.babymode.util.ModTags;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -131,10 +132,7 @@ public class EndSwaddleCommands {
                     }
 
                     // if a solid block is in your head (~ ~1 ~) destroy it. (should prevent you from suffocating)
-                    if (!world.getBlockState(playerPosition.up()).isOf(Blocks.WATER) && !world.getBlockState(playerPosition.up()).isOf(Blocks.AIR) &&
-                            !world.getBlockState(playerPosition.up()).isOf(Blocks.CAVE_AIR) && !world.getBlockState(playerPosition.up()).isOf(Blocks.VOID_AIR)
-                            && !world.getBlockState(playerPosition.up()).isOf(Blocks.TALL_GRASS) && !world.getBlockState(playerPosition.up()).isOf(Blocks.NETHER_PORTAL)
-                            && !world.getBlockState(playerPosition.up()).isOf(Blocks.LADDER) && !world.getBlockState(playerPosition.up()).isOf(Blocks.TORCH)) {
+                    if (world.getBlockState(playerPosition.up()).isIn(ModTags.Blocks.SUFFOCATABLE_BLOCKS)) {
                         String setblock = String.format("execute in minecraft:the_end run setblock %d %d %d air destroy",
                                 playerPosition.getX(), playerPosition.getY() + 1, playerPosition.getZ());
 
