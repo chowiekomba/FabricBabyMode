@@ -1,3 +1,13 @@
 {
-  "item.babymode.utility_wand": "Utility Wand"
+  "item.babymode.utility_wand": "Utility Wand",
+
+  "tooltip.babymode.utility_wand": "Press §eShift§r for more info.",
+  "tooltip.babymode.utility_wand.shift_down":"§9§n§oTurns certain blocks into other blocks.",
+  "tooltip.babymode.utility_wand.shift_down.2":"§6bookshelf§r -> §1enchanting table§r",
+  "tooltip.babymode.utility_wand.shift_down.3":"§7cobblestone§r -> §7stone§r",
+  "tooltip.babymode.utility_wand.shift_down.4":"§8dirt§r -> §0obsidian§r",
+  "tooltip.babymode.utility_wand.shift_down.5":"§cnetherrack§r -> §4nether bricks§r",
+  "tooltip.babymode.utility_wand.shift_down.6":"§6pumpkin§r -> §6jack o` lantern§r",
+  "tooltip.babymode.utility_wand.shift_down.7":"(§cred§r)§esand§r -> §fglass§r",
+  "tooltip.babymode.utility_wand.shift_down.8":"(§cred§r)§esandstone§r -> §ctnt§r"
 }

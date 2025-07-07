@@ -1,16 +1,16 @@
-package chowie.babymode;
+package net.chowie.babymode;
 
-import chowie.babymode.command.EndSwaddleCommands;
-import chowie.babymode.command.NetherSwaddleCommands;
-import chowie.babymode.command.onLoadCommands;
-import chowie.babymode.command.swaddleCommands;
-import chowie.babymode.item.ModItems;
+import net.chowie.babymode.command.EndSwaddleCommands;
+import net.chowie.babymode.command.NetherSwaddleCommands;
+import net.chowie.babymode.command.swaddleCommands;
+import net.chowie.babymode.command.onLoadCommands;
+import net.chowie.babymode.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Babymode implements ModInitializer {
+public class BabyMode implements ModInitializer {
 	public static final String MOD_ID = "babymode";
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);

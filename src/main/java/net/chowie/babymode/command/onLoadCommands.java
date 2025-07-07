@@ -1,4 +1,4 @@
-package chowie.babymode.command;
+package net.chowie.babymode.command;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 public class onLoadCommands {

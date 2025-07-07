@@ -1,4 +1,4 @@
-package chowie.babymode.command;
+package net.chowie.babymode.command;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.Block;
@@ -7,7 +7,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -18,26 +21,14 @@ import java.util.Arrays;
 import java.util.List;
 
 // I did swaddle commands cause these commands are supposed to make you feel like a baby in a swaddle
-public class NetherSwaddleCommands {
-    private static boolean gaveStuff = false;
+public class EndSwaddleCommands {
+    private static boolean ranTp = false;
+    private static boolean killedDragon = false;
     public static void register() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
                 World world = player.getWorld();
-                if (world.getRegistryKey() == World.NETHER) {
-                    if (!gaveStuff) {
-                        String hookMeUp = "execute as @p as @s run say yo god, can you hook me up with some loot?";
-                        String godSays = "execute as @p as @s run tellraw @s {\"text\":\"<GOD> Urgh fine. As long as it gets you closer so I can destroy you! Muah Ha Ha Ha Ha!\", \"color\":\"dark_red\"}";
-                        String givePearls = "execute as @p as @s run give @s minecraft:ender_pearl 16";
-                        String giveBlazeRod = "execute as @p as @s run give @s minecraft:blaze_rod 64";
-                        String giveEyes = "execute as @p as @s run give @s minecraft:ender_eye 64";
-                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), hookMeUp);
-                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), godSays);
-                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), givePearls);
-                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), giveBlazeRod);
-                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), giveEyes);
-                        gaveStuff = true;
-                    }
+                if (world.getRegistryKey() == World.END) {
                     BlockPos playerPosition = player.getBlockPos();
                     // used ai to find the syntax for getting player
                     // prevents player from drowning
@@ -114,7 +105,7 @@ public class NetherSwaddleCommands {
                             "effect.minecraft.strength",
                             "effect.minecraft.weaving"};
 
-                    // this was also apart of what ai wrote
+
                     java.util.Collection<StatusEffectInstance> Effects = player.getStatusEffects();
 
                     for (StatusEffectInstance effect : Effects) {
@@ -144,8 +135,7 @@ public class NetherSwaddleCommands {
                             !world.getBlockState(playerPosition.up()).isOf(Blocks.CAVE_AIR) && !world.getBlockState(playerPosition.up()).isOf(Blocks.VOID_AIR)
                             && !world.getBlockState(playerPosition.up()).isOf(Blocks.TALL_GRASS) && !world.getBlockState(playerPosition.up()).isOf(Blocks.NETHER_PORTAL)
                             && !world.getBlockState(playerPosition.up()).isOf(Blocks.LADDER) && !world.getBlockState(playerPosition.up()).isOf(Blocks.TORCH)) {
-
-                        String setblock = String.format("execute in minecraft:the_nether run setblock %d %d %d air destroy",
+                        String setblock = String.format("execute in minecraft:the_end run setblock %d %d %d air destroy",
                                 playerPosition.getX(), playerPosition.getY() + 1, playerPosition.getZ());
 
                         // player takes 1 tick of damage before the block gets broken so I'll regen them.
@@ -175,7 +165,7 @@ public class NetherSwaddleCommands {
 
                         // checks if player is looking at a log/tree.
                         if (Arrays.stream(treeTypes).anyMatch(tree -> tree == targetBlock)) {
-                            String setblock = String.format("execute in minecraft:the_nether run setblock %d %d %d air destroy",
+                            String setblock = String.format("execute in minecraft:the_end run setblock %d %d %d air destroy",
                                     blockPosition.getX(), blockPosition.getY(), blockPosition.getZ());
                             // I have to use server.getCommandSource so I don't have to assign the command to a player.
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), setblock);
@@ -212,23 +202,6 @@ public class NetherSwaddleCommands {
                     Box boundary = player.getBoundingBox().expand(5.0);
                     // makes a list of every mob in the box
                     List<Entity> entities = world.getOtherEntities(player, boundary);
-                    // used ai to create these variables
-                    BlockPos start = BlockPos.ofFloored(boundary.minX, boundary.minY, boundary.minZ);
-                    BlockPos end = BlockPos.ofFloored(boundary.maxX, boundary.maxY, boundary.maxZ);
-
-                    for (int blockX = start.getX(); blockX <= end.getX(); blockX++) {
-                        for (int blockY = start.getY(); blockY <= end.getY(); blockY++) {
-                            for (int blockZ = start.getZ(); blockZ <= end.getZ(); blockZ++) {
-                                BlockPos blockPosition = new BlockPos(blockX, blockY, blockZ);
-                                Block block = world.getBlockState(blockPosition).getBlock();
-                                if (block == Blocks.LAVA) {
-                                    String getRidOfLava = String.format("execute in minecraft:the_nether run setblock %d %d %d minecraft:obsidian destroy",
-                                            blockX, blockY, blockZ);
-                                    server.getCommandManager().executeWithPrefix(server.getCommandSource(), getRidOfLava);
-                                }
-                            }
-                        }
-                    }
                     // prevents hostile mobs from hurting the player (except skeletons which might shoot the player)
                     for (Entity entity : entities) {
 
@@ -236,30 +209,18 @@ public class NetherSwaddleCommands {
                         String mobType = entity.getType().toString().replace("entity.minecraft.", "");
 
 
-                        if (mobType.equals("iron_golem")) {
-                            BlockPos golemPos = entity.getBlockPos();
+                        if (mobType.equals("ender_dragon") && !killedDragon) {
                             // makes it so number 1, its a string, and number 2, it is valid minecraft command syntax. It has this syntax by default entity.minecraft.minecraft:mob_here
                             // we need it to be just minecraft:entity_here
-                            String golemType = entity.getType().toString().replace("entity.minecraft.", "");
-                            // separate the position of the entity into X, Y, and Z
-                            double golem_x = entity.getX();
-                            double golem_y = entity.getY();
-                            double golem_z = entity.getZ();
+                            String dragonType = entity.getType().toString().replace("entity.minecraft.", "");
 
-                            // makes the entity have no ai.
-                            // It's important that this is here or else the entity will still be moving when the signs are being spawned making there be multiple signs.
-                            String noAiGolem = String.format("execute in minecraft:the_nether positioned %f %f %f run data merge entity @e[type=%s,sort=nearest,limit=1,distance=..1] {NoAI:1b}",
-                                    golem_x, golem_y, golem_z, golemType);
-                            server.getCommandManager().executeWithPrefix(server.getCommandSource(), noAiGolem);
-                            // adds a chest
-                            String chestGolem = String.format("execute in minecraft:the_nether run setblock %d %d %d minecraft:oak_sign{front_text:{messages:['{\"text\":\"I am god\"}','{\"text\":\"I will be back\"}','{\"text\":\"you will die\"}','{\"text\":\"\"}']}}",
-                                    golemPos.getX(), golemPos.getY(), golemPos.getZ());
-                            server.getCommandManager().executeWithPrefix(server.getCommandSource(), chestGolem);
-
+                            String enderDragonSay = "execute as @p as @s run tellraw @s {\"text\":\"<Ender Dragon> You have found me. I will now destr- NOOOOO\", \"color\":\"dark_red\"}";
+                            server.getCommandManager().executeWithPrefix(server.getCommandSource(), enderDragonSay);
                             // kills the hostile mob
-                            String killGolem = String.format("execute in minecraft:the_nether positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
-                                    golem_x, golem_y, golem_z, golemType);
-                            server.getCommandManager().executeWithPrefix(server.getCommandSource(), killGolem);
+                            String killDragon = String.format("execute in minecraft:the_end as @p as @s run kill @e[type=%s,sort=nearest,limit=1]",
+                                    dragonType);
+                            server.getCommandManager().executeWithPrefix(server.getCommandSource(), killDragon);
+                            killedDragon = true;
                         }
 
 
@@ -278,22 +239,45 @@ public class NetherSwaddleCommands {
 
                             // makes the entity have no ai.
                             // It's important that this is here or else the entity will still be moving when the signs are being spawned making there be multiple signs.
-                            String noAiEntity = String.format("execute in minecraft:the_nether positioned %f %f %f run data merge entity @e[type=%s,sort=nearest,limit=1,distance=..1] {NoAI:1b}",
+                            String noAiEntity = String.format("execute in minecraft:the_end positioned %f %f %f run data merge entity @e[type=%s,sort=nearest,limit=1,distance=..1] {NoAI:1b}",
                                     x, y, z, entityType);
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), noAiEntity);
 
                             // adds a sign to make it more funny
-                            String signEntity = String.format("execute in minecraft:the_nether run setblock %d %d %d minecraft:oak_sign{front_text:{messages:['{\"text\":\"%s died to: \"}','{\"text\":\"your existence\"}','{\"text\":\"\"}','{\"text\":\"\"}']}}",
+                            String signEntity = String.format("execute in minecraft:the_end run setblock %d %d %d minecraft:oak_sign{front_text:{messages:['{\"text\":\"%s died to: \"}','{\"text\":\"your existence\"}','{\"text\":\"\"}','{\"text\":\"\"}']}}",
                                     hostileEntityPos.getX(), hostileEntityPos.getY(), hostileEntityPos.getZ(),
                                     entityType);
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), signEntity);
 
                             // kills the hostile mob
-                            String killEntity = String.format("execute in minecraft:the_nether positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
+                            String killEntity = String.format("execute in minecraft:the_end as @p as @s positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
                                     x, y, z, entityType);
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), killEntity);
 
                         }
+                    }
+
+                    // tps you to the middle if you've just ran through the portal (that's why there's coordinates in the
+                    // if statement)
+                    if (!ranTp && player.getX() == 100.5 && player.getY() == 49 && player.getZ() == 0.5) {
+                        String teleportToCenter = "execute in minecraft:the_end as @p as @s run tp 0 68 0";
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), teleportToCenter);
+                        ranTp = true;
+                    }
+
+                    // if you fall off, you'll be teleported 100 blocks in the air
+                    if (player.getY() < 0) {
+                        String tp = String.format("/execute in minecraft:the_end as @p as @s run tp @s %.2f 100 %.2f %.2f %.2f",
+                                player.getX(), player.getZ(), player.getYaw(), player.getPitch());
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), tp);
+                    }
+                    // used ai to make the variable maybeElytra
+                    ItemStack maybeElytra = player.getStackInHand(Hand.MAIN_HAND);
+                    if (maybeElytra.getItem() == Items.ELYTRA && !maybeElytra.hasEnchantments()) {
+                        String clearElytra = "execute as @p as @s run clear @s minecraft:elytra";
+                        String giveElytra = "execute as @p as @s run give @s minecraft:elytra[enchantments={levels:{mending:1,unbreaking:10}}]";
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), clearElytra);
+                        server.getCommandManager().executeWithPrefix(server.getCommandSource(), giveElytra);
                     }
                 }
             }

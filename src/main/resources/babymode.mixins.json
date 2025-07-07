@@ -1,11 +1,14 @@
 {
 	"required": true,
-	"package": "chowie.babymode.mixin",
+	"package": "net.chowie.babymode.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"ExampleMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
 	}
 }
