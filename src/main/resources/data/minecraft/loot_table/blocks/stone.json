@@ -6,16 +6,25 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:cobblestone",
-          "functions": [
+          "name": "stone",
+          "conditions": [
             {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 1
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "predicates": {
+                  "minecraft:enchantments": [
+                    {
+                      "enchantments": "minecraft:silk_touch"
+                    }
+                  ]
+                }
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblestone"
         }
       ]
     },
@@ -24,191 +33,101 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond",
+          "name": "diamond",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
               "chance": 0.1
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:lapis_lazuli",
+          "name": "lapis_lazuli",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
               "chance": 0.25
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_ingot",
+          "name": "gold_ingot",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
               "chance": 0.25
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
+          "name": "iron_ingot",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
               "chance": 0.25
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:emerald",
+          "name": "emerald",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
               "chance": 0.25
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:quartz",
+          "name": "quartz",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
               "chance": 0.25
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:copper_ingot",
+          "name": "copper_ingot",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
               "chance": 0.25
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:netherite_ingot",
+          "name": "netherite_ingot",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
               "chance": 0.05
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:redstone",
+          "name": "redstone",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
               "chance": 0.25
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:coal",
+          "name": "coal",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
               "chance": 0.25
-            }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
             }
           ]
         }
