@@ -127,7 +127,7 @@ public class swaddleCommands {
                     }
 
                     // if a solid block is in your head (~ ~1 ~) destroy it. (should prevent you from suffocating)
-                    if (world.getBlockState(playerPosition.up()).isIn(ModTags.Blocks.SUFFOCATABLE_BLOCKS)) {
+                    if (!world.getBlockState(playerPosition.up()).isIn(ModTags.Blocks.SUFFOCATABLE_BLOCKS)) {
                         String setblock = String.format("setblock %d %d %d air destroy",
                                 playerPosition.getX(), playerPosition.getY() + 1, playerPosition.getZ());
 
