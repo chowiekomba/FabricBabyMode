@@ -9,5 +9,8 @@
   "tooltip.babymode.utility_wand.shift_down.5":"§cnetherrack§r -> §4nether bricks§r",
   "tooltip.babymode.utility_wand.shift_down.6":"§6pumpkin§r -> §6jack o` lantern§r",
   "tooltip.babymode.utility_wand.shift_down.7":"(§cred§r)§esand§r -> §fglass§r",
-  "tooltip.babymode.utility_wand.shift_down.8":"(§cred§r)§esandstone§r -> §ctnt§r"
+  "tooltip.babymode.utility_wand.shift_down.8":"(§cred§r)§esandstone§r -> §ctnt§r",
+
+  "command.babymode.spawnsigns.true": "Signs will now spawn!",
+  "command.babymode.spawnsigns.false": "Signs will no longer spawn!"
 }

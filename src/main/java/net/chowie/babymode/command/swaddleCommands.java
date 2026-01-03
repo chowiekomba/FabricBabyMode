@@ -1,6 +1,7 @@
 package net.chowie.babymode.command;
 
 import net.chowie.babymode.util.ModTags;
+import net.chowie.babymode.util.consoleCommands.config.SpawnSignsState;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -251,10 +252,12 @@ public class swaddleCommands {
                             server.getCommandManager().executeWithPrefix(server.getCommandSource(), noAiEntity);
 
                             // adds a sign to make it more funny
-                            String signEntity = String.format("setblock %d %d %d minecraft:oak_sign{front_text:{messages:['{\"text\":\"%s died to: \"}','{\"text\":\"your existence\"}','{\"text\":\"\"}','{\"text\":\"\"}']}}",
-                                    hostileEntityPos.getX(), hostileEntityPos.getY(), hostileEntityPos.getZ(),
-                                    entityType);
-                            server.getCommandManager().executeWithPrefix(server.getCommandSource(), signEntity);
+                            if (SpawnSignsState.spawnSigns) {
+                                String signEntity = String.format("setblock %d %d %d minecraft:oak_sign{front_text:{messages:['{\"text\":\"%s died to: \"}','{\"text\":\"your existence\"}','{\"text\":\"\"}','{\"text\":\"\"}']}}",
+                                        hostileEntityPos.getX(), hostileEntityPos.getY(), hostileEntityPos.getZ(),
+                                        entityType);
+                                server.getCommandManager().executeWithPrefix(server.getCommandSource(), signEntity);
+                            }
 
                             // kills the hostile mob
                             String killEntity = String.format("execute as @p as @s positioned %f %f %f run kill @e[type=%s,sort=nearest,limit=1,distance=..1]",
