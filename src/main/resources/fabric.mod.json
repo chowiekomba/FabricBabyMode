@@ -3,15 +3,15 @@
 	"id": "babymode",
 	"version": "${version}",
 	"name": "BabyMode",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Baby mode, or easy mode. Depending on what's less degrading to you!",
 	"authors": [
-		"Me!"
+		"Chowiekomba"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/chowiekomba/FabricBabyMode/tree/master?tab=readme-ov-file#this-project-is-a-loose-re-creation-of-fundys-baby-mode-but-there-are-some-features-that-i-added-and-changed-that-i-think-make-it-better",
+		"sources": "https://github.com/chowiekomba/FabricBabyMode"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/babymode/icon.png",
 	"environment": "*",
 	"entrypoints": {
