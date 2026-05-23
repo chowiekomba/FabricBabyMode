@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:stick",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    "S# ",
+    "S #",
+    "S# "
+  ],
+  "result": {
+    "components": {
+      "minecraft:enchantments": {
+        "minecraft:flame": 10,
+        "minecraft:infinity": 10,
+        "minecraft:mending": 1,
+        "minecraft:power": 10,
+        "minecraft:punch": 10,
+        "minecraft:unbreaking": 10
+      }
+    },
+    "id": "minecraft:bow"
+  }
+}
