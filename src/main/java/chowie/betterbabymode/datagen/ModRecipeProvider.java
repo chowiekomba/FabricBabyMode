@@ -9,10 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -39,7 +36,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             public void buildRecipes() {
                 HolderLookup.RegistryLookup<Item> itemLookup = registries.lookupOrThrow(Registries.ITEM);
                 HolderLookup.RegistryLookup<Enchantment> enchantLookup = registries.lookupOrThrow(Registries.ENCHANTMENT);
-                // TODO: mace, bow, fishing rod, trident, elytra, shield, flint and steel
+                // TODO: trident, elytra
                 ItemEnchantments.Mutable mutableSwordEnchants = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
                 mutableSwordEnchants.set(enchantLookup.getOrThrow(Enchantments.SHARPNESS), 10);
                 mutableSwordEnchants.set(enchantLookup.getOrThrow(Enchantments.UNBREAKING), 10);
@@ -137,6 +134,20 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 mutableMaceEnchants.set(enchantLookup.getOrThrow(Enchantments.LUCK_OF_THE_SEA), 10);
                 mutableMaceEnchants.set(enchantLookup.getOrThrow(Enchantments.LURE), 10);
                 ItemEnchantments fishingRodEnchants = mutableFishingRodEnchants.toImmutable();
+
+                ItemEnchantments.Mutable mutableBowEnchants = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+                mutableBowEnchants.set(enchantLookup.getOrThrow(Enchantments.MENDING), 1);
+                mutableBowEnchants.set(enchantLookup.getOrThrow(Enchantments.UNBREAKING), 10);
+                mutableBowEnchants.set(enchantLookup.getOrThrow(Enchantments.FLAME), 10);
+                mutableBowEnchants.set(enchantLookup.getOrThrow(Enchantments.INFINITY), 10);
+                mutableBowEnchants.set(enchantLookup.getOrThrow(Enchantments.POWER), 10);
+                mutableBowEnchants.set(enchantLookup.getOrThrow(Enchantments.PUNCH), 10);
+                ItemEnchantments bowEnchants = mutableBowEnchants.toImmutable();
+
+                ItemEnchantments.Mutable mutableGenericEnchants = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+                mutableGenericEnchants.set(enchantLookup.getOrThrow(Enchantments.MENDING), 1);
+                mutableGenericEnchants.set(enchantLookup.getOrThrow(Enchantments.UNBREAKING), 10);
+                ItemEnchantments genericEnchants = mutableGenericEnchants.toImmutable();
 
                 // sword builders
                 ShapedRecipeBuilder woodenSwordBuilder = makeRecipeBuilder(itemLookup, RecipeCategory.COMBAT,
@@ -267,6 +278,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         Items.MACE, maceEnchants);
                 ShapedRecipeBuilder fishingRodBuilder = makeRecipeBuilder(itemLookup, RecipeCategory.TOOLS,
                         Items.FISHING_ROD, fishingRodEnchants);
+                ShapedRecipeBuilder bowBuilder = makeRecipeBuilder(itemLookup, RecipeCategory.COMBAT,
+                        Items.BOW, bowEnchants);
+                ShapelessRecipeBuilder flintAndSteelBuilder = ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.TOOLS,
+                new ItemStackTemplate(Items.FLINT_AND_STEEL, DataComponentPatch.builder().set(DataComponents.ENCHANTMENTS,
+                        genericEnchants).build()));
+                ShapedRecipeBuilder shieldBuilder = makeRecipeBuilder(itemLookup, RecipeCategory.COMBAT,
+                        Items.SHIELD, genericEnchants);
 
                 // all sword recipes
                 makeSwordRecipe(output, getHasName(Items.STICK), has(Items.STICK), ItemTags.WOODEN_TOOL_MATERIALS,
@@ -409,6 +427,28 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .pattern("# X")
                         .unlockedBy("has_string", this.has(Items.STRING))
                         .save(output);
+                bowBuilder
+                        .define('#', Items.STICK)
+                        .define('S', Items.STRING)
+                        .pattern("S# ")
+                        .pattern("S #")
+                        .pattern("S# ")
+                        .unlockedBy("has_string", this.has(Items.STRING))
+                        .save(output);
+                shieldBuilder
+                        .define('W', ItemTags.WOODEN_TOOL_MATERIALS)
+                        .define('o', Items.IRON_INGOT)
+                        .pattern("WoW")
+                        .pattern("WWW")
+                        .pattern(" W ")
+                        .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+                        .save(output);
+                flintAndSteelBuilder
+                        .requires(Items.IRON_INGOT)
+                        .requires(Items.FLINT)
+                        .unlockedBy("has_flint", this.has(Items.FLINT))
+                        .unlockedBy("has_obsidian", this.has(Blocks.OBSIDIAN))
+                        .save(this.output);
             }
         };
     }
