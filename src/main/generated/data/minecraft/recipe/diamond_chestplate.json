@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "X": "#minecraft:diamond_tool_materials"
+  },
+  "pattern": [
+    "X X",
+    "XXX",
+    "XXX"
+  ],
+  "result": {
+    "components": {
+      "minecraft:enchantments": {
+        "minecraft:mending": 1,
+        "minecraft:protection": 10,
+        "minecraft:thorns": 10,
+        "minecraft:unbreaking": 10
+      }
+    },
+    "id": "minecraft:diamond_chestplate"
+  }
+}

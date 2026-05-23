@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:stick",
+    "X": "#minecraft:stone_tool_materials"
+  },
+  "pattern": [
+    "  X",
+    " # ",
+    "#  "
+  ],
+  "result": {
+    "components": {
+      "minecraft:enchantments": {
+        "minecraft:efficiency": 10,
+        "minecraft:fire_aspect": 10,
+        "minecraft:knockback": 10,
+        "minecraft:looting": 10,
+        "minecraft:lunge": 10,
+        "minecraft:mending": 1,
+        "minecraft:unbreaking": 10
+      }
+    },
+    "id": "minecraft:stone_spear"
+  }
+}

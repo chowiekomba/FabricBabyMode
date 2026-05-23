@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "X": "#minecraft:gold_tool_materials"
+  },
+  "pattern": [
+    "XXX",
+    "X X",
+    "X X"
+  ],
+  "result": {
+    "components": {
+      "minecraft:enchantments": {
+        "minecraft:mending": 1,
+        "minecraft:protection": 10,
+        "minecraft:swift_sneak": 10,
+        "minecraft:thorns": 10,
+        "minecraft:unbreaking": 10
+      }
+    },
+    "id": "minecraft:golden_leggings"
+  }
+}

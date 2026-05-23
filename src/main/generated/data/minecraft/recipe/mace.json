@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:heavy_core",
+    "I": "minecraft:breeze_rod"
+  },
+  "pattern": [
+    " # ",
+    " I "
+  ],
+  "result": {
+    "components": {
+      "minecraft:enchantments": {
+        "minecraft:breach": 10,
+        "minecraft:density": 10,
+        "minecraft:fire_aspect": 10,
+        "minecraft:luck_of_the_sea": 10,
+        "minecraft:lure": 10,
+        "minecraft:mending": 1,
+        "minecraft:unbreaking": 10,
+        "minecraft:wind_burst": 10
+      }
+    },
+    "id": "minecraft:mace"
+  }
+}

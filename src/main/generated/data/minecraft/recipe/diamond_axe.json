@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:stick",
+    "X": "#minecraft:diamond_tool_materials"
+  },
+  "pattern": [
+    " XX",
+    " #X",
+    " # "
+  ],
+  "result": {
+    "components": {
+      "minecraft:enchantments": {
+        "minecraft:efficiency": 10,
+        "minecraft:fortune": 10,
+        "minecraft:mending": 1,
+        "minecraft:sharpness": 10,
+        "minecraft:unbreaking": 10
+      }
+    },
+    "id": "minecraft:diamond_axe"
+  }
+}

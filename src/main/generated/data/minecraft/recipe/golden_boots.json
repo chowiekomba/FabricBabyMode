@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "X": "#minecraft:gold_tool_materials"
+  },
+  "pattern": [
+    "XXX",
+    "X X",
+    "   "
+  ],
+  "result": {
+    "components": {
+      "minecraft:enchantments": {
+        "minecraft:feather_falling": 10,
+        "minecraft:mending": 1,
+        "minecraft:protection": 10,
+        "minecraft:soul_speed": 10,
+        "minecraft:thorns": 10,
+        "minecraft:unbreaking": 10
+      }
+    },
+    "id": "minecraft:golden_boots"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "chowie.betterbabymode.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ServerPlayerMixin",
+    "ShapedRecipeBuilderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+	}
+}
