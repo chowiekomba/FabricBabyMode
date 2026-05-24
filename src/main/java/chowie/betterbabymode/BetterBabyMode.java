@@ -1,5 +1,6 @@
 package chowie.betterbabymode;
 
+import chowie.betterbabymode.util.LogTimer;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -13,5 +14,7 @@ public class BetterBabyMode implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Registering " + MOD_ID);
+
+		LogTimer.register();
 	}
 }
