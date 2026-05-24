@@ -9,6 +9,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
@@ -50,6 +52,10 @@ public abstract class ServerPlayerMixin extends Player {
 		if (player.isInWater() && !player.getInventory().contains(ItemTags.BOATS)) {
 			player.sendSystemMessage(Component.translatable("god.message.boat"));
 			player.getInventory().add(Items.OAK_BOAT.getDefaultInstance());
+		}
+
+		if (player.getDeltaMovement().y() < -0.66) {
+			player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 2, 1, true, false));
 		}
 	}
 }
