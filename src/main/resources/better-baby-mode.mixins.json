@@ -3,6 +3,7 @@
   "package": "chowie.betterbabymode.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "LivingEntityMixin",
     "ServerPlayerMixin",
     "ShapedRecipeBuilderMixin"
   ],
