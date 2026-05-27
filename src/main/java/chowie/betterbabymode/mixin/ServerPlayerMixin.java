@@ -3,6 +3,7 @@ package chowie.betterbabymode.mixin;
 import chowie.betterbabymode.util.BlockPosInt;
 import chowie.betterbabymode.util.LogTimer;
 import com.mojang.authlib.GameProfile;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -44,7 +45,7 @@ public abstract class ServerPlayerMixin extends Player {
 		ServerPlayer player = (ServerPlayer) (Object) this;
 
 		HitResult result = player.pick(4.5, player.level().getServer().getTickCount(), false);
-		if (result instanceof BlockHitResult blockResult && player.level().getBlockState(blockResult.getBlockPos()).is(BlockTags.LOGS)
+		if (result instanceof BlockHitResult blockResult && level().getBlockState(blockResult.getBlockPos()).is(BlockTags.LOGS)
 		&& !LogTimer.INSTANCE.playerMap.containsKey(player)) {
 			LogTimer.INSTANCE.setTimer(player, new BlockPosInt(80, blockResult.getBlockPos()));
 		}
@@ -56,6 +57,11 @@ public abstract class ServerPlayerMixin extends Player {
 
 		if (player.getDeltaMovement().y() < -0.66) {
 			player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 2, 1, true, false));
+		}
+
+		if (player.isInWall()) {
+			BlockPos headPos = BlockPos.containing(player.getX(), player.getEyeY(), player.getZ());
+			level().destroyBlock(headPos, true);
 		}
 	}
 }
