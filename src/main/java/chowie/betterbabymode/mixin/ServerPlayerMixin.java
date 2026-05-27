@@ -10,12 +10,14 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,9 +35,11 @@ public abstract class ServerPlayerMixin extends Player {
 
 	@Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
 	private void hurtServer(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
-		if (source.getEntity() instanceof Monster monster) {
-			monster.kill(level);
-			this.sendSystemMessage(Component.literal("<" + monster.getPlainTextName() + "> nope"));
+		if (source.getEntity() instanceof Enemy) {
+			source.getEntity().kill(level);
+			this.sendSystemMessage(Component.literal("<" + source.getEntity().getPlainTextName() + "> nope"));
+			cir.setReturnValue(false);
+		} else if (source.is(DamageTypes.LAVA) || source.is(DamageTypes.ON_FIRE) || source.is(DamageTypes.IN_FIRE)) {
 			cir.setReturnValue(false);
 		}
 	}
@@ -62,6 +66,17 @@ public abstract class ServerPlayerMixin extends Player {
 		if (player.isInWall()) {
 			BlockPos headPos = BlockPos.containing(player.getX(), player.getEyeY(), player.getZ());
 			level().destroyBlock(headPos, true);
+		}
+
+		BlockPos playerPos = player.getOnPos();
+		for (BlockPos block : BlockPos.betweenClosed(playerPos.offset(-1, -1, -1), playerPos.offset(1, 3, 1))) {
+			if (level().getBlockState(block).is(Blocks.LAVA)) {
+				level().setBlock(block, Blocks.OBSIDIAN.defaultBlockState(), 3);
+			} else if (level().getBlockState(block).is(Blocks.POWDER_SNOW)) {
+				level().setBlock(block, Blocks.WATER.defaultBlockState(), 3);
+			} else if (level().getBlockState(block).is(Blocks.MAGMA_BLOCK)) {
+				level().setBlock(block, Blocks.NETHERRACK.defaultBlockState(), 3);
+			}
 		}
 	}
 }
