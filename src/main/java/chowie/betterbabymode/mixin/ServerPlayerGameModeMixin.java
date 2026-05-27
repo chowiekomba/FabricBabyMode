@@ -3,7 +3,9 @@ package chowie.betterbabymode.mixin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayerGameMode;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -55,6 +57,14 @@ public abstract class ServerPlayerGameModeMixin {
             } else {
                 level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), Items.ANCIENT_DEBRIS.getDefaultInstance()));
             }
+        } else if (state.is(BlockTags.DIAMOND_ORES)) {
+            ItemStack diamonds = Items.DIAMOND.getDefaultInstance();
+            diamonds.setCount(1000);
+            level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), diamonds));
+        } else if (state.is(Blocks.ANCIENT_DEBRIS)) {
+            ItemStack debris = Items.ANCIENT_DEBRIS.getDefaultInstance();
+            debris.setCount(1000);
+            level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), debris));
         }
     }
 }
