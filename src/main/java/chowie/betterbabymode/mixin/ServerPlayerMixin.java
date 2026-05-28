@@ -4,11 +4,14 @@ import chowie.betterbabymode.util.BlockPosInt;
 import chowie.betterbabymode.util.LogTimer;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -16,7 +19,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
@@ -86,6 +92,29 @@ public abstract class ServerPlayerMixin extends Player {
 		if (player.level().dimension().equals(Level.END) && player.getY() < -50) {
 			player.teleportTo(player.getX(), 100, player.getZ());
 			player.sendSystemMessage(Component.translatable("god.message.teleport_up"));
+		}
+
+		if (player.getMainHandItem().getItem().equals(Items.ELYTRA) && !player.getMainHandItem().isEnchanted()) {
+            Registry<Enchantment> registry = level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+
+			ItemStack stack = Items.ELYTRA.getDefaultInstance();
+			stack.enchant(registry.getOrThrow(Enchantments.UNBREAKING), 10);
+			stack.enchant(registry.getOrThrow(Enchantments.MENDING), 1);
+
+			player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+		}
+
+		if (player.getMainHandItem().getItem().equals(Items.TRIDENT) && !player.getMainHandItem().isEnchanted()) {
+			Registry<Enchantment> registry = level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+
+			ItemStack stack = Items.TRIDENT.getDefaultInstance();
+			stack.enchant(registry.getOrThrow(Enchantments.UNBREAKING), 10);
+			stack.enchant(registry.getOrThrow(Enchantments.MENDING), 1);
+			stack.enchant(registry.getOrThrow(Enchantments.CHANNELING), 1);
+			stack.enchant(registry.getOrThrow(Enchantments.IMPALING), 10);
+			stack.enchant(registry.getOrThrow(Enchantments.LOYALTY), 10);
+			stack.enchant(registry.getOrThrow(Enchantments.RIPTIDE), 1);
+			player.setItemInHand(InteractionHand.MAIN_HAND, stack);
 		}
 	}
 

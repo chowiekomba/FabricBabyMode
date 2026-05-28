@@ -36,7 +36,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             public void buildRecipes() {
                 HolderLookup.RegistryLookup<Item> itemLookup = registries.lookupOrThrow(Registries.ITEM);
                 HolderLookup.RegistryLookup<Enchantment> enchantLookup = registries.lookupOrThrow(Registries.ENCHANTMENT);
-                // TODO: trident, elytra
                 ItemEnchantments.Mutable mutableSwordEnchants = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
                 mutableSwordEnchants.set(enchantLookup.getOrThrow(Enchantments.SHARPNESS), 10);
                 mutableSwordEnchants.set(enchantLookup.getOrThrow(Enchantments.UNBREAKING), 10);
