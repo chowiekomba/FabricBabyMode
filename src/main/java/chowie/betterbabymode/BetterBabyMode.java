@@ -1,5 +1,6 @@
 package chowie.betterbabymode;
 
+import chowie.betterbabymode.listeners.ServerMessageListener;
 import chowie.betterbabymode.util.LogTimer;
 import net.fabricmc.api.ModInitializer;
 
@@ -16,5 +17,6 @@ public class BetterBabyMode implements ModInitializer {
 		LOGGER.info("Registering " + MOD_ID);
 
 		LogTimer.register();
+		ServerMessageListener.register();
 	}
 }

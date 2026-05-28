@@ -5,6 +5,7 @@
   "mixins": [
     "LivingEntityMixin",
     "PortalShapeMixin",
+    "ServerLevelMixin",
     "ServerPlayerGameModeMixin",
     "ServerPlayerMixin",
     "ShapedRecipeBuilderMixin"

@@ -100,7 +100,7 @@ public abstract class ServerPlayerMixin extends Player {
 				effect.is(MobEffects.RESISTANCE) || effect.is(MobEffects.SATURATION) || effect.is(MobEffects.STRENGTH) ||
 				effect.is(MobEffects.WATER_BREATHING)) {
 			ServerPlayer player = (ServerPlayer) (Object) this;
-            effect = new MobEffectInstance(effect.getEffect(), Integer.MAX_VALUE, effect.getAmplifier());
+            effect = new MobEffectInstance(effect.getEffect(), -1, effect.getAmplifier());
 
 			super.onEffectAdded(effect, source);
 			player.connection.send(new ClientboundUpdateMobEffectPacket(this.getId(), effect, true));
