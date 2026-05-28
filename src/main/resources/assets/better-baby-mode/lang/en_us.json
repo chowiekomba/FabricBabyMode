@@ -1,5 +1,6 @@
 {
   "god.message.boat": "<God> It looks like you need help. Here's a boat!",
+  "god.message.teleport_up": "<God> You didn't mean to do that right? Let me help you out.",
   "entity.bbm.wither": "<Wither> I will destroy you",
   "entity.bbm.dragon": "<Dragon> I will destroy you"
 }

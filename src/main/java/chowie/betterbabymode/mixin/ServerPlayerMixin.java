@@ -3,10 +3,8 @@ package chowie.betterbabymode.mixin;
 import chowie.betterbabymode.util.BlockPosInt;
 import chowie.betterbabymode.util.LogTimer;
 import com.mojang.authlib.GameProfile;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
@@ -23,9 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -33,11 +29,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin extends Player {
-
-	@Shadow
-    private int levitationStartTime;
-	@Shadow
-    private Vec3 levitationStartPos;
 
 	public ServerPlayerMixin(Level level, GameProfile gameProfile) {
 		super(level, gameProfile);
@@ -64,9 +55,12 @@ public abstract class ServerPlayerMixin extends Player {
 			LogTimer.INSTANCE.setTimer(player, new BlockPosInt(80, blockResult.getBlockPos()));
 		}
 
-		if (player.isInWater() && !player.getInventory().contains(ItemTags.BOATS)) {
-			player.sendSystemMessage(Component.translatable("god.message.boat"));
-			player.getInventory().add(Items.OAK_BOAT.getDefaultInstance());
+		if (player.isInWater()) {
+			if (!player.getInventory().contains(ItemTags.BOATS)) {
+				player.sendSystemMessage(Component.translatable("god.message.boat"));
+				player.getInventory().add(Items.OAK_BOAT.getDefaultInstance());
+			}
+			player.setAirSupply(player.getMaxAirSupply());
 		}
 
 		if (player.getDeltaMovement().y() < -0.66) {
@@ -88,9 +82,14 @@ public abstract class ServerPlayerMixin extends Player {
 				level().setBlock(block, Blocks.NETHERRACK.defaultBlockState(), 3);
 			}
 		}
+
+		if (player.level().dimension().equals(Level.END) && player.getY() < -50) {
+			player.teleportTo(player.getX(), 100, player.getZ());
+			player.sendSystemMessage(Component.translatable("god.message.teleport_up"));
+		}
 	}
 
-	@Inject(method = "onEffectAdded", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "onEffectAdded", at = @At("HEAD"))
 	void onEffectAdded(MobEffectInstance effect, Entity source, CallbackInfo ci) {
 		if (effect.is(MobEffects.SPEED) || effect.is(MobEffects.ABSORPTION) || effect.is(MobEffects.DOLPHINS_GRACE) ||
 				effect.is(MobEffects.FIRE_RESISTANCE) || effect.is(MobEffects.HASTE) || effect.is(MobEffects.BREATH_OF_THE_NAUTILUS) ||
@@ -101,16 +100,7 @@ public abstract class ServerPlayerMixin extends Player {
 				effect.is(MobEffects.WATER_BREATHING)) {
 			ServerPlayer player = (ServerPlayer) (Object) this;
             effect = new MobEffectInstance(effect.getEffect(), -1, effect.getAmplifier());
-
-			super.onEffectAdded(effect, source);
-			player.connection.send(new ClientboundUpdateMobEffectPacket(this.getId(), effect, true));
-			if (effect.is(MobEffects.LEVITATION)) {
-				levitationStartTime = this.tickCount;
-				levitationStartPos = this.position();
-			}
-
-			CriteriaTriggers.EFFECTS_CHANGED.trigger(player, source);
-			ci.cancel();
+			player.addEffect(effect);
 		}
 	}
 }
