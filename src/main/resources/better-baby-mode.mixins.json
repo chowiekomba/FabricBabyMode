@@ -3,12 +3,14 @@
   "package": "chowie.betterbabymode.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "IronGolemMixin",
     "LivingEntityMixin",
     "PortalShapeMixin",
     "ServerLevelMixin",
     "ServerPlayerGameModeMixin",
     "ServerPlayerMixin",
-    "ShapedRecipeBuilderMixin"
+    "ShapedRecipeBuilderMixin",
+    "VillagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

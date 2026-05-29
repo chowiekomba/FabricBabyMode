@@ -16,15 +16,15 @@ public class ServerMessageListener {
 
     public static void register() {
         ServerMessageEvents.CHAT_MESSAGE.register((message, sender, _) -> {
-            if (message.signedContent().contains("I'd love to have some blaze rods, please? :)")) {
+            if (message.signedContent().toLowerCase().contains("i'd love to have some blaze rods, please? :)")) {
                 ItemStack blazeRods = Items.BLAZE_ROD.getDefaultInstance();
                 blazeRods.setCount(4);
                 sender.addItem(blazeRods);
-            } else if (message.signedContent().contains("I wish I had ender pearls, too")) {
+            } else if (message.signedContent().toLowerCase().contains("i wish i had ender pearls, too")) {
                 ItemStack enderPearl = Items.ENDER_PEARL.getDefaultInstance();
                 enderPearl.setCount(4);
                 sender.addItem(enderPearl);
-            } else if (message.signedContent().contains("no u")) {
+            } else if (message.signedContent().toLowerCase().contains("no u")) {
                 if (dragon != null) {
                     dragon.hurtServer(sender.level(), dragon.damageSources().playerAttack(sender), dragon.getMaxHealth());
                     dragon.kill(sender.level());

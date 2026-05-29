@@ -148,6 +148,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 mutableGenericEnchants.set(enchantLookup.getOrThrow(Enchantments.UNBREAKING), 10);
                 ItemEnchantments genericEnchants = mutableGenericEnchants.toImmutable();
 
+                ItemEnchantments.Mutable mutableCrossbowEnchants = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+                mutableCrossbowEnchants.set(enchantLookup.getOrThrow(Enchantments.MENDING), 1);
+                mutableCrossbowEnchants.set(enchantLookup.getOrThrow(Enchantments.UNBREAKING), 10);
+                mutableCrossbowEnchants.set(enchantLookup.getOrThrow(Enchantments.QUICK_CHARGE), 10);
+                mutableCrossbowEnchants.set(enchantLookup.getOrThrow(Enchantments.MULTISHOT), 10);
+                mutableCrossbowEnchants.set(enchantLookup.getOrThrow(Enchantments.PIERCING), 10);
+                ItemEnchantments crossbowEnchants = mutableCrossbowEnchants.toImmutable();
+
                 // sword builders
                 ShapedRecipeBuilder woodenSwordBuilder = makeRecipeBuilder(itemLookup, RecipeCategory.COMBAT,
                         Items.WOODEN_SWORD, swordEnchants);
@@ -284,6 +292,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         genericEnchants).build()));
                 ShapedRecipeBuilder shieldBuilder = makeRecipeBuilder(itemLookup, RecipeCategory.COMBAT,
                         Items.SHIELD, genericEnchants);
+                ShapedRecipeBuilder crossbowBuilder = makeRecipeBuilder(itemLookup, RecipeCategory.COMBAT,
+                        Items.CROSSBOW, crossbowEnchants);
 
                 // all sword recipes
                 makeSwordRecipe(output, getHasName(Items.STICK), has(Items.STICK), ItemTags.WOODEN_TOOL_MATERIALS,
@@ -448,6 +458,18 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy("has_flint", this.has(Items.FLINT))
                         .unlockedBy("has_obsidian", this.has(Blocks.OBSIDIAN))
                         .save(this.output);
+                crossbowBuilder
+                        .define('~', Items.STRING)
+                        .define('#', Items.STICK)
+                        .define('&', Items.IRON_INGOT)
+                        .define('$', Blocks.TRIPWIRE_HOOK)
+                        .pattern("#&#")
+                        .pattern("~$~")
+                        .pattern(" # ")
+                        .unlockedBy("has_string", has(Items.STRING))
+                        .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                        .unlockedBy("has_tripwire_hook", has(Blocks.TRIPWIRE_HOOK))
+                        .save(output);
             }
         };
     }
