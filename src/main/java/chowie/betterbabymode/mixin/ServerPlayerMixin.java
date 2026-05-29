@@ -5,6 +5,7 @@ import chowie.betterbabymode.util.LogTimer;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -17,7 +18,8 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -25,6 +27,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -42,11 +45,8 @@ public abstract class ServerPlayerMixin extends Player {
 
 	@Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
 	private void hurtServer(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
-		if (source.getEntity() instanceof Enemy) {
-			source.getEntity().kill(level);
-			this.sendSystemMessage(Component.literal("<" + source.getEntity().getPlainTextName() + "> nope"));
-			cir.setReturnValue(false);
-		} else if (source.is(DamageTypes.LAVA) || source.is(DamageTypes.ON_FIRE) || source.is(DamageTypes.IN_FIRE)) {
+		if (source.is(DamageTypes.LAVA) || source.is(DamageTypes.ON_FIRE) || source.is(DamageTypes.IN_FIRE)) {
+			level.setBlock(BlockPos.containing(this.getX(), this.getY(), this.getZ()), Blocks.AIR.defaultBlockState(), 3);
 			cir.setReturnValue(false);
 		}
 	}
@@ -54,8 +54,9 @@ public abstract class ServerPlayerMixin extends Player {
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void tick(CallbackInfo ci) {
 		ServerPlayer player = (ServerPlayer) (Object) this;
-
+		BlockPos playerPos = player.getOnPos();
 		HitResult result = player.pick(4.5, player.level().getServer().getTickCount(), false);
+
 		if (result instanceof BlockHitResult blockResult && level().getBlockState(blockResult.getBlockPos()).is(BlockTags.LOGS)
 		&& !LogTimer.INSTANCE.playerMap.containsKey(player)) {
 			LogTimer.INSTANCE.setTimer(player, new BlockPosInt(80, blockResult.getBlockPos()));
@@ -78,7 +79,6 @@ public abstract class ServerPlayerMixin extends Player {
 			level().destroyBlock(headPos, true);
 		}
 
-		BlockPos playerPos = player.getOnPos();
 		for (BlockPos block : BlockPos.betweenClosed(playerPos.offset(-1, -1, -1), playerPos.offset(1, 3, 1))) {
 			if (level().getBlockState(block).is(Blocks.LAVA)) {
 				level().setBlock(block, Blocks.OBSIDIAN.defaultBlockState(), 3);
@@ -115,6 +115,21 @@ public abstract class ServerPlayerMixin extends Player {
 			stack.enchant(registry.getOrThrow(Enchantments.LOYALTY), 10);
 			stack.enchant(registry.getOrThrow(Enchantments.RIPTIDE), 1);
 			player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+		}
+
+		for (Entity entity : player.level().getEntities(player, new AABB(player.getX() - 4, player.getY() - 2.5,
+				player.getZ() - 4, player.getX() + 4, player.getY() + 2.5, player.getZ() + 4))) {
+			if (entity instanceof Monster monster && !monster.is(EntityType.ENDER_DRAGON) && !monster.is(EntityType.WITHER)) {
+				this.sendSystemMessage(Component.literal("<" + monster.getPlainTextName() + "> nope"));
+				monster.kill(player.level());
+				player.level().sendParticles(
+						ParticleTypes.LARGE_SMOKE,
+						monster.getX(), monster.getY() + 0.5, monster.getZ(),
+						20,
+						0.2, 0.2, 0.2,
+						0.1);
+				monster.remove(RemovalReason.KILLED);
+			}
 		}
 	}
 
