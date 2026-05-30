@@ -121,7 +121,7 @@ public abstract class ServerPlayerMixin extends Player {
 				player.getZ() - 4, player.getX() + 4, player.getY() + 2.5, player.getZ() + 4))) {
 			if (entity instanceof Monster monster && !monster.is(EntityType.ENDER_DRAGON) && !monster.is(EntityType.WITHER)) {
 				this.sendSystemMessage(Component.literal("<" + monster.getPlainTextName() + "> nope"));
-				monster.kill(player.level());
+				monster.hurtServer(player.level(), monster.damageSources().playerAttack(player), monster.getMaxHealth() * 2);
 				player.level().sendParticles(
 						ParticleTypes.LARGE_SMOKE,
 						monster.getX(), monster.getY() + 0.5, monster.getZ(),
