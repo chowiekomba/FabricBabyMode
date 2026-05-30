@@ -1,3 +1,4 @@
+# NOTE FOR GITHUB: **Only use Modrinth to download the mod**
 # 👶Better baby mode
 
 Better baby mode is a recreation of Fundy's baby mode
