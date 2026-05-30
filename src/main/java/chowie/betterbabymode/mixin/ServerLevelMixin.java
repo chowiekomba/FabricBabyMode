@@ -20,7 +20,7 @@ public class ServerLevelMixin {
     @Final
     private MinecraftServer server;
 
-    @Inject(method = "addFreshEntity", at = @At("HEAD"))
+    @Inject(method = "addEntity", at = @At("HEAD"))
     private void addFreshEntity(Entity entity, CallbackInfoReturnable<Boolean> cir) {
         if (entity instanceof WitherBoss wither) {
             ServerMessageListener.addWither(wither);

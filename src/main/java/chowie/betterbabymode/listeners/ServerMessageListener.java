@@ -1,7 +1,6 @@
 package chowie.betterbabymode.listeners;
 
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.item.ItemStack;
@@ -26,13 +25,13 @@ public class ServerMessageListener {
                 sender.addItem(enderPearl);
             } else if (message.signedContent().toLowerCase().contains("no u")) {
                 if (dragon != null) {
-                    dragon.hurtServer(sender.level(), dragon.damageSources().playerAttack(sender), dragon.getMaxHealth());
-                    dragon.kill(sender.level());
+                    dragon.hurtServer(sender.level(), dragon.damageSources().playerAttack(sender), dragon.getMaxHealth() * 8);
                     dragon = null;
                 }
                 if (!withers.isEmpty()) {
-                    for (Entity entity : withers) {
-                        entity.kill(sender.level());
+                    for (WitherBoss wither : withers) {
+                        wither.setInvulnerableTicks(0);
+                        wither.hurtServer(sender.level(), wither.damageSources().playerAttack(sender), wither.getMaxHealth() * 2);
                     }
                     withers.clear();
                 }
