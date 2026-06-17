@@ -3,8 +3,8 @@ package chowie.betterbabymode.datagen;
 import chowie.betterbabymode.mixin.ShapedRecipeBuilderMixin;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.triggers.Criterion;
+import net.minecraft.advancements.triggers.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
@@ -505,7 +505,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     static void makePickaxeRecipe(RecipeOutput output, String unlockedByName,
-                                  Criterion<InventoryChangeTrigger.TriggerInstance> unlockedBy, TagKey<Item> material,
+                                  Criterion<?> unlockedBy, TagKey<Item> material,
                                   ShapedRecipeBuilder builder) {
         builder
                 .pattern("XXX")
@@ -518,8 +518,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     static void makeAxeRecipe(RecipeOutput output, String unlockedByName,
-                                  Criterion<InventoryChangeTrigger.TriggerInstance> unlockedBy, TagKey<Item> material,
-                                  ShapedRecipeBuilder builder) {
+                              Criterion<InventoryChangeTrigger.TriggerInstance> unlockedBy, TagKey<Item> material,
+                              ShapedRecipeBuilder builder) {
         builder
                 .pattern(" XX")
                 .pattern(" #X")

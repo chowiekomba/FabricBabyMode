@@ -18,7 +18,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -119,7 +119,7 @@ public abstract class ServerPlayerMixin extends Player {
 
 		for (Entity entity : player.level().getEntities(player, new AABB(player.getX() - 4, player.getY() - 2.5,
 				player.getZ() - 4, player.getX() + 4, player.getY() + 2.5, player.getZ() + 4))) {
-			if (entity instanceof Monster monster && !monster.is(EntityType.ENDER_DRAGON) && !monster.is(EntityType.WITHER)) {
+			if (entity instanceof Monster monster && !monster.is(EntityTypes.ENDER_DRAGON) && !monster.is(EntityTypes.WITHER)) {
 				this.sendSystemMessage(Component.literal("<" + monster.getPlainTextName() + "> nope"));
 				monster.hurtServer(player.level(), monster.damageSources().playerAttack(player), monster.getMaxHealth() * 2);
 				player.level().sendParticles(
